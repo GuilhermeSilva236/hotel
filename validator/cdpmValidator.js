@@ -74,14 +74,14 @@ const cdpmValidator = {
     },
 
     numer: {
-        required: 'Este campo é obrigatorio!, E o seu valor máximo é de 10 números.',
+        required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 10,
-            message: 'o minimo é 10'
+            value: 14,
+            message:'Numero de Telefone Não Existente'
         },
         maxLength: {
-            value: 10,
-            message: 'Você passou a quantidade máxima para este campo'
+            value: 14,
+            message:'Numero de Telefone Não Existente'
         },
     },
     
@@ -95,16 +95,17 @@ const cdpmValidator = {
             value: 7,
             message: 'Você passou a quantidade máxima para este campo'
         },
+        
     },
 
     obser: {
-        required: 'Este campo é obrigatorio!, E o seu valor máximo é de 7 números.',
+        required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 7,
-            message: 'o minimo é 7'
+            value: 400,
+            message:''
         },
         maxLength: {
-            value: 7,
+            value: 400,
             message: 'Você passou a quantidade máxima para este campo'
         },
     },

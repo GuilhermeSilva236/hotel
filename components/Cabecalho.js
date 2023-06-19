@@ -24,7 +24,7 @@ const Cabecalho = () => {
             <Nav.Link className='nav-link' href="/cddono">Cadastro Do Dono Do Pet</Nav.Link>
             <Nav.Link className='nav-link' href="/cdpetconsul">Cadastro De Consulta Do Pet</Nav.Link>
             <Nav.Link className='nav-link' href="/cdpm">Formulário de Pedido de Medicamentos</Nav.Link>
-            <Nav.Link className='nav-link' href="/salas">Endereço de Entrega</Nav.Link>
+            <Nav.Link className='nav-link' href="/fapc">Formulário de Avaliação Pós-Consulta</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

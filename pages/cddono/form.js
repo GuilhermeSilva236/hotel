@@ -81,7 +81,13 @@ const form = () => {
 
                 <Form.Group className="mb-3" controlId='rg'>
                     <Form.Label >RG: </Form.Label>
-                    <Form.Control isInvalid={errors.rg} type="text" {...register('rg', cddonoValidator.rg)} />
+                    <Form.Control
+                    mask='9.999.999'
+                    maxLength={9}
+                    isInvalid={errors.rg} 
+                    type="text" 
+                    {...register('rg', cddonoValidator.rg)} 
+                    onChange={handleChange}/> 
                     {
                         errors.rg &&
                         <p className='mt-1 text-danger'>{errors.rg.message}</p>
@@ -98,7 +104,13 @@ const form = () => {
 
                 <Form.Group className="mb-3" controlId='telefone'>
                     <Form.Label >Telefone: </Form.Label>
-                    <Form.Control isInvalid={errors.telefone} type="text" {...register('telefone', cddonoValidator.telefone)} />
+                    <Form.Control 
+                    mask='(99) 99999-9999'
+                    maxLength={15}
+                    isInvalid={errors.telefone} 
+                    type="text" 
+                    {...register('telefone', cddonoValidator.telefone)} 
+                    onChange={handleChange} />
                     {
                         errors.telefone &&
                         <p className='mt-1 text-danger'>{errors.telefone.message}</p>
@@ -106,7 +118,13 @@ const form = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId='cep'>
                     <Form.Label >CEP: </Form.Label>
-                    <Form.Control isInvalid={errors.cep} type="text" {...register('cep', cddonoValidator.cep)} />
+                    <Form.Control 
+                    mask='99999-999'
+                    maxLength={9}
+                    isInvalid={errors.cep} 
+                    type="text" 
+                    {...register('cep', cddonoValidator.cep)} 
+                    onChange={handleChange} />
                     {
                         errors.cep &&
                         <p className='mt-1 text-danger'>{errors.cep.message}</p>
@@ -130,7 +148,12 @@ const form = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId='numero'>
                     <Form.Label >Numero: </Form.Label>
-                    <Form.Control isInvalid={errors.numero} type="text" {...register('numero', cddonoValidator.numero)} />
+                    <Form.Control mask='999'
+                    maxLength={3}
+                    isInvalid={errors.numero} 
+                    type="text" 
+                    {...register('numero', cddonoValidator.numero)} 
+                    onChange={handleChange} />
                     {
                         errors.numero &&
                         <p className='mt-1 text-danger'>{errors.numero.message}</p>

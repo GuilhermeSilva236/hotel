@@ -6,20 +6,12 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { BsCheckLg } from 'react-icons/bs'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { mask } from 'remask'
-import cddonoValidator from '@/validator/cddonoValidator'
+
 
 const form = () => {
 
     const { push, query } = useRouter()
     const { register, handleSubmit, setValue } = useForm()
-
-    function handleChange(event){ 
-        const name = event.target.name
-        const valor = event.target.value
-        const mascara = event.target.getAttribute('mask')
-        setValue(name, mask(valor, mascara));
-    }
 
     useEffect(() => {
         if (query.id) {
@@ -55,18 +47,8 @@ const form = () => {
                     
                 <Form.Group className="mb-3" controlId="cpf">
                     <Form.Label>CPF: </Form.Label>
-                    <Form.Control 
-                    mask='999.999.999-99'
-                    maxLength={14}
-                    isInvalid={errors.cpf}
-                    type="text" 
-                    {...register('cpf', cddonoValidator.cpf)} 
-                    onChange={handleChange}/>
-                    {
-                        errors.cpf &&
-                        <p className='mt-1 text danger'>{errors.cpf.message}</p>
-                    }
-                </Form.Group>
+                    <Form.Control type="text" {...register('NomedoseuPet')} />
+                    </Form.Group>
 
                 <Form.Group className="mb-3" controlId="rg">
                     <Form.Label>RG: </Form.Label>

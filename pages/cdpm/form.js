@@ -7,11 +7,20 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { IoMdArrowBack } from 'react-icons/io'
 import cdpmValidator from '@/validator/cdpmValidator'
+import { mask } from 'remask'
+
 
 const form = () => {
 
     const { push } = useRouter()
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm()
+
+    function handleChange(event){ 
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
 
     function salvar(dados) {
         const cddono = JSON.parse(window.localStorage.getItem('cddono')) || []
@@ -92,7 +101,13 @@ const form = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId='numer'>
                     <Form.Label >Número de contato: </Form.Label>
-                    <Form.Control isInvalid={errors.numer} type="text" {...register('numer', cdpmValidator.numer)} />
+                    <Form.Control 
+                    mask='(99)99999-9999'
+                    maxLength={14}
+                    isInvalid={errors.numer} 
+                    type="text" 
+                    {...register('numer', cdpmValidator.numer)}
+                    onChange={handleChange}/>
                     {
                         errors.numer &&
                         <p className='mt-1 text-danger'>{errors.numer.message}</p>

@@ -14,45 +14,9 @@ const cddonoValidator = {
 
     NomedoseuPet: {
         required: 'Este campo é obrigatorio!',
-        maxLength: {
-            value: 2,
-            message:'o minimo é 2'
-        },
         minLength: {
             value: 1,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    duracao: {
-        required: 'Este campo é obrigatorio!',
-        maxLength: {
-            value: 2,
-            message:'o minimo é 2'
-        },
-        minLength: {
-            value: 1,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    modalidade:  {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 3,
-            message:'o minimo é 3'
-        },
-        maxLength: {
-            value: 10,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    curso: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 5,
-            message:'o minimo é 5'
+            message:'Este campo é obrigatorio!'
         },
         maxLength: {
             value: 50,
@@ -61,60 +25,59 @@ const cddonoValidator = {
     },
 
     cpf: {
-        required: 'Este campo é obrigatorio!, E o seu valor máximo é de 11 números.',
-        pattern: '[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}',
+        required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 11,
-            message:'o minimo é 11'
+            value: 14,
+            message:'CPF não Validado!'
         },
         maxLength: {
-            value: 11,
-            message:'Você passou a quantidade máxima para este campo'
+            value: 14,
+            message:'CPF não Validado!'
         },
     },
 
     rg: {
-        required: 'Este campo é obrigatorio!, E o seu valor máximo é de 10 números.',
+        required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 10,
-            message:'o minimo é 10'
+            value: 9,
+            message:'RG não Validado!'
         },
         maxLength: {
-            value: 10,
-            message:'Você passou a quantidade máxima para este campo'
+            value: 9,
+            message:'RG não Validado!'
         },
     },
     cep: {
-        required: 'Este campo é obrigatorio!, E o seu valor máximo é de 7 números.',
+        required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 7,
-            message:'o minimo é 7'
+            value: 9,
+            message:'CEP não Correspondente'
         },
         maxLength: {
-            value: 7,
-            message:'Você passou a quantidade máxima para este campo'
+            value: 9,
+            message:'CEP não Correspondente'
         },
     },
     telefone: {
         required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 13,
-            message:'o minimo é 13'
+            value: 14,
+            message:'Numero de Telefone Não Existente'
         },
         maxLength: {
-            value: 20,
-            message:'Você passou a quantidade máxima para este campo'
+            value: 14,
+            message:'Numero de Telefone Não Existente'
         },
     },
     email: {
         required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 10,
-            message:'o minimo é 10'
-        },
         maxLength: {
-            value: 50,
+            value: 150,
             message:'Você passou a quantidade máxima para este campo'
+        },
+        pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|com\.br)$/,
+            message: 'digite um e-mail válido!',
         },
     },
     logradouro: {
@@ -142,23 +105,23 @@ const cddonoValidator = {
     numero: {
         required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 1,
-            message:'o minimo é 1'
+            value: 3,
+            message:'Numero de Endereço Nâo Correspondente'
         },
         maxLength: {
-            value: 100,
-            message:'Você passou a quantidade máxima para este campo'
+            value: 3,
+            message:'Numero de Endereço Nâo Correspondente'
         },
     },
     bairro: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 3,
-            message:'o minimo é 3'
+            message:'Bairro de Endereço Não Correspondente'
         },
         maxLength: {
             value: 100,
-            message:'Você passou a quantidade máxima para este campo'
+            message:'Bairro de Endereço Não Correspondente'
         },
     },
 

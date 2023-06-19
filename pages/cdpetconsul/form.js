@@ -7,11 +7,19 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { IoMdArrowBack } from 'react-icons/io'
 import cdpetconsulValidator from '@/validator/cdpetconsulValidator'
+import { mask } from 'remask'
 
 const form = () => {
 
     const { push } = useRouter()
-    const { register, handleSubmit, formState: {errors} } = useForm()
+    const { register, handleSubmit, setValue, formState: {errors} } = useForm()
+
+    function handleChange(event){ 
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
 
     function salvar(dados) {
         const cdpetconsul = JSON.parse(window.localStorage.getItem('cdpetconsul')) || []
@@ -48,8 +56,8 @@ const form = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId='nomedop'>
-                    <Form.Label >Nome do Proprietario: </Form.Label>
-                    <Form.Control isInvalid={errors.data} type="text" {...register('nomedop', cdpetconsulValidator.data)} />
+                    <Form.Label >Nome Do Proprietário: </Form.Label>
+                    <Form.Control isInvalid={errors.nomedop} type="text" {...register('nomedop', cdpetconsulValidator.nomedop)} />
                     {
                         errors.nomedop &&
                         <p className='mt-1 text-danger'>{errors.nomedop.message}</p>
@@ -58,7 +66,13 @@ const form = () => {
 
                 <Form.Group className="mb-3" controlId='numerodetelefone'>
                     <Form.Label >Numero De Telefone: </Form.Label>
-                    <Form.Control isInvalid={errors.numerodetelefone} type="text" {...register('numerodetelefone',cdpetconsulValidator.numerodetelefone)} />
+                    <Form.Control 
+                    mask='(99)99999-9999'
+                    maxLength={14}
+                    isInvalid={errors.numerodetelefone} 
+                    type="text" 
+                    {...register('numerodetelefone', cdpetconsulValidator.numerodetelefone)}
+                    onChange={handleChange} />
                     {
                         errors.numerodetelefone &&
                         <p className='mt-1 text-danger'>{errors.numerodetelefone.message}</p>
@@ -105,7 +119,7 @@ const form = () => {
                     <Form.Label >Data preferencial para a consulta: </Form.Label>
                     <Form.Control isInvalid={errors.dhpc} type="date" {...register('dpc',cdpetconsulValidator.dhpc)} />
                     {
-                        errors.dhpc &&
+                        errors.dpc &&
                         <p className='mt-1 text-danger'>{errors.dhpc.message}</p>
                     }     
                 </Form.Group>

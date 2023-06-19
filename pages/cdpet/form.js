@@ -7,10 +7,18 @@ import { useForm } from 'react-hook-form'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { IoMdArrowBack } from 'react-icons/io'
 import cdpetValidator from '@/validator/cdpetvalidator'
+import { mask } from 'remask'
 
 export const form = () => {
     const { push } = useRouter()
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm()
+
+    function handleChange(event){ 
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
 
     function salvar(dados) {
         const cdpet = JSON.parse(window.localStorage.getItem('cdpet')) || []
@@ -65,7 +73,7 @@ export const form = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId='Datadenascimento'>
                         <Form.Label >Data De Nascimento: </Form.Label>
-                        <Form.Control isInvalid={errors.Datadenascimento} type="text" {...register('Datadenascimento', cdpetValidator.Datadenascimento)} />
+                        <Form.Control isInvalid={errors.Datadenascimento} type="date" {...register('Datadenascimento', cdpetValidator.Datadenascimento)}/>
                         {
                             errors.Datadenascimento &&
                             <p className='mt-1 text-danger'>{errors.Datadenascimento.message}</p>
@@ -105,8 +113,14 @@ export const form = () => {
                         }
                     </Form.Group>
                     <Form.Group className="mb-3" controlId='Infocontato'>
-                        <Form.Label >Informaçõoes De Contato: </Form.Label>
-                        <Form.Control isInvalid={errors.Infocontato} type="text" {...register('Infocontato', cdpetValidator.Infocontato)} />
+                        <Form.Label >Numero de Contato: </Form.Label>
+                        <Form.Control 
+                        mask='(99) 99999-9999'
+                        maxLength={15}
+                        isInvalid={errors.Infocontato} 
+                        type="text" 
+                        {...register('Infocontato', cdpetValidator.Infocontato)} 
+                        onChange={handleChange} />
                         {
                             errors.Infocontato &&
                             <p className='mt-1 text-danger'>{errors.Infocontato.message}</p>

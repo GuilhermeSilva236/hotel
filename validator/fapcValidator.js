@@ -1,113 +1,89 @@
-const cdpetValidator = {
-    NomedoPet: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
+const fapcValidator = {
     
-    Especie: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Raca: {
+    ade: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 0,
             message:'Este campo nâo é obrigatorio!'
         },
         maxLength: {
-            value: 50,
+            value: 200,
             message:'Você passou a quantidade máxima para este campo'
         },
     },
 
-    Datadenascimento: {
+    ddc: {
         required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 10,
-            message:'Data Não Correspondente!'
+            value: 0,
+            message:'Este campo nâo é obrigatorio!'
         },
         maxLength: {
-            value: 10,
+            value: 200,
             message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Sexo: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Peso: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Tamanho: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Comportamento: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo é obrigatorio!'
-        },
-        maxLength: {
-            value: 50,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    Infocontato: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 15,
-            message:'Numero de Telefone Não Existente'
-        },
-        maxLength: {
-            value: 15,
-            message:'Numero de Telefone Não Existente'
         },
     },
     
+    nva: {
+        required: 'Este campo é obrigatorio!',
+        minLength: {
+            value: 1,
+            message:'Este campo nâo é obrigatorio!'
+        },
+        maxLength: {
+            value: 5,
+            message:'Você passou a quantidade máxima para este campo'
+        },
+    },
+
+    aec: {
+        required: 'Este campo é obrigatorio!',
+        minLength: {
+            value: 1,
+            message:'Este campo nâo é obrigatorio!'
+        },
+        maxLength: {
+            value: 5,
+            message:'Você passou a quantidade máxima para este campo'
+        },
+    },
+
+    aav: {
+        required: 'Este campo é obrigatorio!',
+        minLength: {
+            value: 1,
+            message:'Este campo nâo é obrigatorio!'
+        },
+        maxLength: {
+            value: 5,
+            message:'Você passou a quantidade máxima para este campo'
+        },
+    },
+
+    aet: {
+        required: 'Este campo é obrigatorio!',
+        minLength: {
+            value: 1,
+            message:'Este campo nâo é obrigatorio!'
+        },
+        maxLength: {
+            value: 5,
+            message:'Você passou a quantidade máxima para este campo'
+        },
+    },
+
+    cact: {
+        required: 'Este campo é obrigatorio!',
+        minLength: {
+            value: 0,
+            message:'Este campo nâo é obrigatorio!'
+        },
+        maxLength: {
+            value: 400,
+            message:'Você passou a quantidade máxima para este campo'
+        },
+    },
+
 
 }
-
-export default cdpetValidator
+export default fapcValidator
