@@ -1,16 +1,14 @@
-const cargoValidator = {
-
-    cargo: {
+const datareservaValidator = {
+    datareserva: {
         required: 'Este campo é obrigatorio!',
         minLength: {
-            value: 13,
+            value: 1,
             message:'Este campo é obrigatorio!'
         },
         maxLength: {
-            value: 300,
+            value: 50,
             message:'Você passou a quantidade máxima para este campo'
         },
     },
-
 }
-export default cargoValidator
+export default datareservaValidator

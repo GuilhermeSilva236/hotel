@@ -45,10 +45,10 @@ const form = () => {
                 <Form.Group as={Col} className="mb-3" controlId='tipo'>
                     <Form.Label >Informações de tipo: </Form.Label>
                     <Form.Select isInvalid={errors.tipo} type="text" {...register('tipo', quartosValidator.tipo)}>
-                        <option>escolha o tipo de quarto desejado</option>
-                        <option>individual</option>
-                        <option>duplo</option>
-                        <option>suíte</option>
+                        <option value=''>Escolha o tipo de quarto desejado</option>
+                        <option value='individual'>individual</option>
+                        <option value='duplo'>duplo</option>
+                        <option value='suíte'>suíte</option>
 
                     </Form.Select>
                     {
@@ -60,11 +60,11 @@ const form = () => {
                 <Form.Group as={Col} className="mb-3" controlId='capacidade'>
                     <Form.Label >Informações de capacidade: </Form.Label>
                     <Form.Select isInvalid={errors.capacidade} type="text" {...register('capacidade', quartosValidator.capacidade)}>
-                        <option>escolha o capacidade do quarto desejado</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                        <option value=''>escolha o capacidade do quarto desejado</option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
 
                     </Form.Select>
                     {
@@ -75,7 +75,13 @@ const form = () => {
 
                 <Form.Group className="mb-3" controlId='preço'>
                     <Form.Label >Preço por noite: </Form.Label>
-                    <Form.Control isInvalid={errors.preço} type="text" {...register('preço', quartosValidator.preço)} />
+                    <Form.Control 
+                    mask='R$ 9.999,99'
+                    maxLength={11}
+                    isInvalid={errors.preço} 
+                    type="text" 
+                    {...register('preço', quartosValidator.preço)}
+                    onChange={handleChange} />
                     {
                         errors.preço &&
                         <p className='mt-1 text-danger'>{errors.preço.message}</p>

@@ -36,9 +36,9 @@ const form = () => {
                 <Form.Group as={Col} className="mb-3" controlId='pagamento'>
                     <Form.Label >Nome do serviço: </Form.Label>
                     <Form.Select isInvalid={errors.pagamento} type="text" {...register('pagamento', servicosValidator.pagamento)}>
-                        <option>escolha a serviço</option>
-                        <option>spa</option>
-                        <option>academia</option>
+                        <option value=''>escolha a serviço</option>
+                        <option value='spa'>spa</option>
+                        <option value='academia'>academia</option>
                         
                     </Form.Select>
                     {

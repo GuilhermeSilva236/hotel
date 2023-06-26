@@ -29,7 +29,7 @@ const index = () => {
     return (
         <Pagina>
             
-            <Link href="/funcionario/form" className='mb-2 btn btn-primary'>
+            <Link href="/funcionario/form" className='mb-2 btn btn-danger'>
                 Novo
             </Link>
 

@@ -28,15 +28,12 @@ const index = () => {
 
     return (
         <Pagina>
-            
-            <Link href="/hospedagem/form" className='mb-2 btn btn-primary mt-2 bg-danger'>
-                Nov
-            </Link>
 
             <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Data da Reserva</th>
                         <th>Nome completo</th>
                         <th>Endereço de E-mail</th>
                         <th>Senha</th>
@@ -49,12 +46,13 @@ const index = () => {
                     {hospedagem.map((item, i) => (
                         <tr key={i}>
                             <td>
-                                <Link href={'/hospedagem/form' + i}>
+                                <Link href={'/hospedagem/' + i}>
                                     <BsPencilFill title="Alterar" className='text-primary' />
                                 </Link>
                                 {' '}
                                 <BsFillTrash3Fill title="Excluir" onClick={() => excluir(i)} className='text-danger' />
                             </td>
+                            <td>{item.datareserva}</td>
                             <td>{item.nomecp}</td>
                             <td>{item.email}</td>
                             <td>{item.senha}</td>

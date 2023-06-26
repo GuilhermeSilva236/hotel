@@ -43,7 +43,7 @@ const quartosValidator = {
             message:'Este campo nâo é obrigatorio!'
         },
         maxLength: {
-            value: 5,
+            value: 11,
             message:'Você passou a quantidade máxima para este campo'
         },
     },
@@ -55,7 +55,7 @@ const quartosValidator = {
             message:'Este campo nâo é obrigatorio!'
         },
         maxLength: {
-            value: 5,
+            value: 300,
             message:'Você passou a quantidade máxima para este campo'
         },
     },

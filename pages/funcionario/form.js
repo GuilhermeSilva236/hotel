@@ -45,11 +45,11 @@ const form = () => {
                 <Form.Group as={Col} className="mb-3" controlId='cargo'>
                         <Form.Label >Informações de cargo: </Form.Label>
                         <Form.Select isInvalid={errors.cargo} type="text" {...register('cargo', cargoValidador.cargo)}>
-                            <option>escolha o cargo desejado</option>
-                            <option>Gerente Geral</option>
-                            <option>Gerente de Operações</option>
-                            <option>Gerente de Recepção</option>
-                            <option>Gerente de Alimentos e Bebidas</option>
+                            <option value=''>Escolha o Cargo Desejado</option>
+                            <option value='Gerente Geral'>Gerente Geral</option>
+                            <option value='Gerente de Operações'>Gerente de Operações</option>
+                            <option value='Gerente de Recepção'>Gerente de Recepção</option>
+                            <option value='Gerente de Alimentos e Bebidas'>Gerente de Alimentos e Bebidas</option>
                         </Form.Select>
                         {
                             errors.cargo &&

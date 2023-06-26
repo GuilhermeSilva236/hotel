@@ -29,7 +29,7 @@ const index = () => {
     return (
         <Pagina>
             
-            <Link href="/quartos/form" className='mb-2 btn btn-primary'>
+            <Link href="/quartos/form" className='mb-2 btn btn-danger'>
                 Novo
             </Link>
 
@@ -49,7 +49,7 @@ const index = () => {
                     {quartos.map((item, i) => (
                         <tr key={i}>
                             <td>
-                                <Link href={'/quartos/form' + i}>
+                                <Link href={'/quartos/' + i}>
                                     <BsPencilFill title="Alterar" className='text-primary' />
                                 </Link>
                                 {' '}

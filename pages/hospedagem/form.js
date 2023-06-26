@@ -28,10 +28,6 @@ const form = () => {
         push('/hospedagem')
     }
 
-
-
-    
-
     return (
         <Pagina>
             <Form>

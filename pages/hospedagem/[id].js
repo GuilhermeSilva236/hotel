@@ -1,77 +1,114 @@
 import Pagina from '@/components/Pagina'
-import React, { useEffect } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { BsCheckLg } from 'react-icons/bs'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
-
+import { useRouter } from 'next/router'
+import React from 'react'
+import { Button, Card, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
+import { AiOutlineCheck } from 'react-icons/ai'
+import { IoMdArrowBack } from 'react-icons/io'
+import hospedagemValidator from '@/validator/hospedagemValidator'
+import { mask } from 'remask'
+import { useEffect } from 'react'
 
 const form = () => {
 
     const { push, query } = useRouter()
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm()
 
     useEffect(() => {
         if (query.id) {
-            const id = query.id
-            const hospedagem = JSON.parse(localStorage.getItem('hospedagem'))
-            const hospedagems = hospedagem[id]
+            const hospedagem = JSON.parse(window.localStorage.getItem('hospedagem'))
+            const hospedagems = hospedagem[query.id]
 
-            for (let atributo in hospedagem) {
-                setValue(atributo, hospedagem[atributo])
+            for (let atributo in hospedagems) {
+                setValue(atributo, hospedagems[atributo])
             }
         }
     }, [query.id])
 
+    function handleChange(event){ 
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
+
     function salvar(dados) {
-        const hospedagem = JSON.parse(localStorage.getItem('hospedagem')) || []
-        hospedagem.splice(query.id, 1, dados)
-        localStorage.setItem('hospedagem', JSON.stringify(hospedagem))
+        const hospedagem = JSON.parse(window.localStorage.getItem('hospedagem')) || []
+        hospedagem.push(dados)
+        window.localStorage.setItem('hospedagem', JSON.stringify(hospedagem))
         push('/hospedagem')
     }
 
     return (
         <Pagina>
             <Form>
-                <Form.Group className="mb-3" controlId="nomecp">
-                    <Form.Label>Nome completo: </Form.Label>
-                    <Form.Control type="text" {...register('nomecp')} />
+                
+                <Form.Group className="mb-3" controlId='nomecp'>
+                    <Form.Label >Nome completo: </Form.Label>
+                    <Form.Control isInvalid={errors.nomecp} type="text" {...register('nomecp', hospedagemValidator.nomecp)} />
+                    {
+                        errors.nomecp &&
+                        <p className='mt-1 text-danger'>{errors.nomecp.message}</p>
+                    }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="email">
-                    <Form.Label>Endereço de E-mail: </Form.Label>
-                    <Form.Control type="text" {...register('email')} />
+                <Form.Group className="mb-3" controlId='email'>
+                    <Form.Label >Endereço de E-mail: </Form.Label>
+                    <Form.Control isInvalid={errors.email} type="text" {...register('email', hospedagemValidator.email)} />
+                    {
+                        errors.email &&
+                        <p className='mt-1 text-danger'>{errors.email.message}</p>
+                    }
+                </Form.Group>
+                
+                <Form.Group className="mb-3" controlId='senha'>
+                    <Form.Label >Senha: </Form.Label>
+                    <Form.Control isInvalid={errors.senha} type="text" {...register('senha', hospedagemValidator.senha)} />
+                    {
+                        errors.senha &&
+                        <p className='mt-1 text-danger'>{errors.senha.message}</p>
+                    }
+                </Form.Group>
+                
+                <Form.Group className="mb-3" controlId='nascimento'>
+                    <Form.Label >Data de nascimento: </Form.Label>
+                    <Form.Control isInvalid={errors.nascimento} type="date" {...register('nascimento', hospedagemValidator.nascimento)} />
+                    {
+                        errors.nascimento &&
+                        <p className='mt-1 text-danger'>{errors.nascimento.message}</p>
+                    }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="senha">
-                    <Form.Label>Senha: </Form.Label>
-                    <Form.Control type="text" {...register('senha')} />
+                <Form.Group className="mb-3" controlId='numero'>
+                    <Form.Label >Número de telefone: </Form.Label>
+                    <Form.Control 
+                    mask='(99) 99999-9999'
+                    maxLength={15}
+                    isInvalid={errors.numero} 
+                    type="text" 
+                    {...register('numero', hospedagemValidator.numero)} 
+                    onChange={handleChange} />
+                    {
+                        errors.numero &&
+                        <p className='mt-1 text-danger'>{errors.numero.message}</p>
+                    }
                 </Form.Group>
-
-                <Form.Group className="mb-3" controlId="nascimento">
-                    <Form.Label>Data de nascimento: </Form.Label>
-                    <Form.Control type="date" {...register('nascimento')} />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="numero">
-                    <Form.Label>Número de telefone: </Form.Label>
-                    <Form.Control type="text" {...register('numero')} />
-                </Form.Group>
-
+                
                 <div className='text-center'>
                     <Button variant="success" onClick={handleSubmit(salvar)}>
-                        <BsCheckLg className="me-2" />
+                        <AiOutlineCheck className='me-2' />
                         Salvar
                     </Button>
-                    <Link className="ms-2 btn btn-danger" href="/hospedagem">
-                        <AiOutlineArrowLeft className="me-2" />
-                        Voltar
+
+                    <Link className=' ms-2 btn btn-danger' href='/hospedagem'>
+                        <IoMdArrowBack className='me-2' />
+                        voltar
                     </Link>
                 </div>
             </Form>
         </Pagina>
+
     )
 }
 

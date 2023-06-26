@@ -1,72 +1,111 @@
 import Pagina from '@/components/Pagina'
-import React, { useEffect } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { BsCheckLg } from 'react-icons/bs'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { Button, Card, Col, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
+import { AiOutlineCheck } from 'react-icons/ai'
+import { IoMdArrowBack } from 'react-icons/io'
+import { mask } from 'remask'
+import servicosValidator from '@/validator/servicosValidator'
+import { useEffect } from 'react'
 
 
 const form = () => {
 
     const { push, query } = useRouter()
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm()
 
     useEffect(() => {
-        if (query.id){
+        if (query.id) {
             const servicos = JSON.parse(window.localStorage.getItem('servicos'))
-            const servicoss = servicos [query.id]
+            const servicoss = servicos[query.id]
 
-            for (let atributo in servicoss){
-                setValue(atributo, servicoss[atributo]) 
+            for (let atributo in servicoss) {
+                setValue(atributo, servicoss[atributo])
             }
         }
     }, [query.id])
 
+    function handleChange(event) {  
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
 
     function salvar(dados) {
-        const servicos = JSON.parse(localStorage.getItem('servicos')) || []
+        const servicos = JSON.parse(window.localStorage.getItem('servicos')) || []
         servicos.splice(query.id, 1, dados)
-        localStorage.setItem('servicos', JSON.stringify(servicos))
+        window.localStorage.setItem('servicos', JSON.stringify(servicos))
         push('/servicos')
     }
 
     return (
         <Pagina>
             <Form>
-                <Form.Group className="mb-3" controlId="servico">
-                    <Form.Label>Nome do serviço (restaurante, spa, academia, etc.): </Form.Label>
-                    <Form.Control type="text" {...register('servico')} />
+            
+                <Form.Group as={Col} className="mb-3" controlId='pagamento'>
+                    <Form.Label >Nome do serviço: </Form.Label>
+                    <Form.Select isInvalid={errors.pagamento} type="text" {...register('pagamento', servicosValidator.pagamento)}>
+                        <option value=''>escolha a serviço</option>
+                        <option value='spa'>spa</option>
+                        <option value='academia'>academia</option>
+                        
+                    </Form.Select>
+                    {
+                        errors.pagamento &&
+                        <p className='mt-1 text-danger'>{errors.pagamento.message}</p>
+                    }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="funcionamento">
-                        <Form.Label>Horários de funcionamento: </Form.Label>
-                        <Form.Control type="text" {...register('funcionamento')} />
-                    </Form.Group>
-                    
-                <Form.Group className="mb-3" controlId="telefone">
-                    <Form.Label>Telefone do funcionário: </Form.Label>
-                    <Form.Control type="text" {...register('telefone')} />
+                <Form.Group className="mb-3" controlId='funcionamento'>
+                    <Form.Label >Horários de funcionamento: </Form.Label>
+                    <Form.Control isInvalid={errors.funcionamento} type="time" {...register('funcionamento', servicosValidator.funcionamento)} />
+                    {
+                        errors.funcionamento &&
+                        <p className='mt-1 text-danger'>{errors.funcionamento.message}</p>
+                    }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="email">
-                    <Form.Label>E-mail do funcionário: </Form.Label>
-                    <Form.Control type="text" {...register('email')} />
+                <Form.Group className="mb-3" controlId='telefone'>
+                    <Form.Label >Telefone do funcionário: </Form.Label>
+                    <Form.Control  
+                    mask='(99) 99999-9999'
+                    maxLength={15}
+                    isInvalid={errors.telefone} 
+                    type="text" 
+                    {...register('telefone', servicosValidator.telefone)} 
+                    onChange={handleChange} />
+                    {
+                        errors.telefone &&
+                        <p className='mt-1 text-danger'>{errors.telefone.message}</p>
+                    }
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId='email'>
+                    <Form.Label >E-mail do funcionário: </Form.Label>
+                    <Form.Control isInvalid={errors.email} type="text" {...register('email', servicosValidator.email)} />
+                    {
+                        errors.email &&
+                        <p className='mt-1 text-danger'>{errors.email.message}</p>
+                    }
                 </Form.Group>
 
                 <div className='text-center'>
                     <Button variant="success" onClick={handleSubmit(salvar)}>
-                        <BsCheckLg className="me-2" />
+                        <AiOutlineCheck className='me-2' />
                         Salvar
                     </Button>
-                    <Link className="ms-2 btn btn-danger" href="/servicos">
-                        <AiOutlineArrowLeft className="me-2" />
-                        Voltar
+
+                    <Link className=' ms-2 btn btn-danger' href='/servicos'>
+                        <IoMdArrowBack className='me-2' />
+                        voltar
                     </Link>
                 </div>
             </Form>
         </Pagina>
+
     )
 }
 

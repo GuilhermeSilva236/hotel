@@ -1,78 +1,122 @@
 import Pagina from '@/components/Pagina'
-import React, { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { BsCheckLg } from 'react-icons/bs'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { Button, Card, Col, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
+import { AiOutlineCheck } from 'react-icons/ai'
+import { IoMdArrowBack } from 'react-icons/io'
+import funcionarioValidator from '@/validator/funcionarioValidator'
+import { mask } from 'remask'
+import cargoValidador from '@/validator/cargoValidator'
+import { useEffect } from 'react'
 
 const form = () => {
 
-    const { push, query } = useRouter()
-    const { register, handleSubmit, setValue } = useForm()
-    
-    useEffect(() => {
-        if(query.id){
-            const id = query.id
-            const funcionario = JSON.parse(window.localStorage.getItem('funcionario'))
-            const funcionarios = funcionario[id]
+    const { push, query} = useRouter()
+    const { register, handleSubmit, setValue, formState: {errors} } = useForm()
 
-            for(let atributo in funcionario){
-                setValue(atributo, funcionario[atributo])
+    useEffect(() => {
+        if (query.id) {
+            const funcionario = JSON.parse(window.localStorage.getItem('funcionario'))
+            const funcionarios = funcionario[query.id]
+
+            for (let atributo in funcionarios) {
+                setValue(atributo, funcionarios[atributo])
             }
         }
     }, [query.id])
 
+    function handleChange(event){ 
+        const name = event.target.name
+        const valor = event.target.value
+        const mascara = event.target.getAttribute('mask')
+        setValue(name, mask(valor, mascara));
+    }
+
     function salvar(dados) {
-        const cdpetconsul = JSON.parse(window.localStorage.getItem('funcionario')) || []
-        funcionario.splice(query.id, 1, dados)
+        const funcionario = JSON.parse(window.localStorage.getItem('funcionario')) || []
+        funcionario.push(dados)
         window.localStorage.setItem('funcionario', JSON.stringify(funcionario))
         push('/funcionario')
     }
 
     return (
-        <Pagina titulo="funcionario">
+        <Pagina>
+            
             <Form>
-                <Form.Group className="mb-3" controlId="nomecp">
-                    <Form.Label>Nome completo: </Form.Label>
-                    <Form.Control type="text" {...register('nomecp')} />
+                <Form.Group className="mb-3" controlId='nomecp'>
+                    <Form.Label >Nome completo: </Form.Label>
+                    <Form.Control isInvalid={errors.nomecp} type="text" {...register('nomecp', funcionarioValidator.nomecp)} />
+                    {
+                        errors.nomecp &&
+                        <p className='mt-1 text-danger'>{errors.nomecp.message}</p>
+                    }
+                </Form.Group>
+                
+                <Form.Group as={Col} className="mb-3" controlId='cargo'>
+                        <Form.Label >Informações de cargo: </Form.Label>
+                        <Form.Select isInvalid={errors.cargo} type="text" {...register('cargo', cargoValidador.cargo)}>
+                            <option value=''>Escolha o Cargo Desejado</option>
+                            <option value='Gerente Geral'>Gerente Geral</option>
+                            <option value='Gerente de Operações'>Gerente de Operações</option>
+                            <option value='Gerente de Recepção'>Gerente de Recepção</option>
+                            <option value='Gerente de Alimentos e Bebidas'>Gerente de Alimentos e Bebidas</option>
+                        </Form.Select>
+                        {
+                            errors.cargo &&
+                            <p className='mt-1 text-danger'>{errors.cargo.message}</p>
+                        }
+                    </Form.Group>
+
+                <Form.Group className="mb-3" controlId='emailcp'>
+                    <Form.Label >Endereço de e-mail corporativo: </Form.Label>
+                    <Form.Control isInvalid={errors.emailcp} type="text" {...register('emailcp',funcionarioValidator.emailcp)} />
+                    {
+                        errors.emailcp &&
+                        <p className='mt-1 text-danger'>{errors.emailcp.message}</p>
+                    }     
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="cargo">
-                    <Form.Label>Função ou cargo: </Form.Label>
-                    <Form.Control type="text" {...register('cargo')} />
+                <Form.Group className="mb-3" controlId='telefone'>
+                    <Form.Label >Número de telefone: </Form.Label>
+                    <Form.Control 
+                    mask='(99) 99999-9999'
+                    maxLength={15}
+                    isInvalid={errors.telefone} 
+                    type="text" 
+                    {...register('telefone', funcionarioValidator.telefone)} 
+                    onChange={handleChange}/>
+                    {
+                        errors.telefone &&
+                        <p className='mt-1 text-danger'>{errors.telefone.message}</p>
+                    }     
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="emailcp">
-                    <Form.Label>Endereço de e-mail corporativo: </Form.Label>
-                    <Form.Control type="text" {...register('emailcp')} />
+                <Form.Group className="mb-3" controlId='acesso'>
+                    <Form.Label >Informações de acesso (níveis de permissão): </Form.Label>
+                    <Form.Control isInvalid={errors.acesso} type="text" {...register('acesso',funcionarioValidator.acesso)} />
+                    {
+                        errors.acesso &&
+                        <p className='mt-1 text-danger'>{errors.acesso.message}</p>
+                    }     
                 </Form.Group>
-
-                <Form.Group className="mb-3" controlId="telefone">
-                    <Form.Label>Número de telefone: </Form.Label>
-                    <Form.Control type="text" {...register('telefone')} />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="acesso">
-                    <Form.Label>Informações de acesso (níveis de permissão): </Form.Label>
-                    <Form.Control type="text" {...register('acesso')} />
-                </Form.Group>
-
+                
                 <div className='text-center'>
                     <Button variant="success" onClick={handleSubmit(salvar)}>
-                        <BsCheckLg className="me-2" />
+                        <AiOutlineCheck className='me-2' />
                         Salvar
                     </Button>
-                    <Link className="ms-2 btn btn-danger" href="/funcionario">
-                        <AiOutlineArrowLeft className="me-2" />
-                        Voltar
+
+                    <Link className=' ms-2 btn btn-danger' href='/funcionario'>
+                        <IoMdArrowBack className='me-2' />
+                        voltar
                     </Link>
                 </div>
             </Form>
         </Pagina>
+
     )
 }
 
 export default form
-

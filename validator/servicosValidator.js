@@ -1,6 +1,6 @@
 const servicosValidator = {
 
-    servico: {
+    pagamento: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 1,

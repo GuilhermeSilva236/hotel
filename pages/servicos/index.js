@@ -29,7 +29,7 @@ const index = () => {
     return (
         <Pagina>
            
-            <Link href="/servicos/form" className='mb-2 btn btn-primary'>
+            <Link href="/servicos/form" className='mb-2 btn btn-danger'>
                 Novo
             </Link>
 
@@ -49,13 +49,13 @@ const index = () => {
                     {servicos.map((item, i) => (
                         <tr key={i}>
                             <td>
-                                <Link href={'/servicos/form' + i}>
+                                <Link href={'/servicos/' + i}>
                                     <BsPencilFill title="Alterar" className='text-primary' />
                                 </Link>
                                 {' '}
                                 <BsFillTrash3Fill title="Excluir" onClick={() => excluir(i)} className='text-danger' />
                             </td>
-                            <td>{item.servico}</td>
+                            <td>{item.pagamento}</td>
                             <td>{item.funcionamento}</td>
                             <td>{item.telefone}</td>
                             <td>{item.email}</td>
