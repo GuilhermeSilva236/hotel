@@ -1,6 +1,6 @@
-const fapcValidator = {
+const quartosValidator = {
     
-    ade: {
+    quarto: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 0,
@@ -12,7 +12,7 @@ const fapcValidator = {
         },
     },
 
-    ddc: {
+    tipo: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 0,
@@ -24,7 +24,7 @@ const fapcValidator = {
         },
     },
     
-    nva: {
+    capacidade: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 1,
@@ -36,7 +36,7 @@ const fapcValidator = {
         },
     },
 
-    aec: {
+    preço: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 1,
@@ -48,7 +48,7 @@ const fapcValidator = {
         },
     },
 
-    aav: {
+    descrição: {
         required: 'Este campo é obrigatorio!',
         minLength: {
             value: 1,
@@ -59,31 +59,6 @@ const fapcValidator = {
             message:'Você passou a quantidade máxima para este campo'
         },
     },
-
-    aet: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 1,
-            message:'Este campo nâo é obrigatorio!'
-        },
-        maxLength: {
-            value: 5,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
-    cact: {
-        required: 'Este campo é obrigatorio!',
-        minLength: {
-            value: 0,
-            message:'Este campo nâo é obrigatorio!'
-        },
-        maxLength: {
-            value: 400,
-            message:'Você passou a quantidade máxima para este campo'
-        },
-    },
-
 
 }
-export default fapcValidator
+export default quartosValidator
